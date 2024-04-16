@@ -7,7 +7,8 @@ var moment = require('moment');
 /* Display all bookings */
 router.get("/allBookings", function (req, res, next) {
   
-  Booking.find({ })
+  Booking.find({})
+  .populate('travelInfos')
   .then((travels) => {
     if (travels) { // On retourne les infos des trajets
         res.json({result: true, travels: travels});
@@ -24,11 +25,11 @@ router.post("/purchase", function (req, res, next) {
     .then((travels) => {
       if (travels) { // On ajoute les trajets du panier dans les bookings
         for (let travel of travels) {
-            const newTravel = new Booking({
-                travel
+            const addBooking = new Booking({
+                travelInfos: travel.travelInfos
             });
 
-            newTravel.save().then();
+            addBooking.save().then();
         }
           res.json({result: true});
       } else { // Le trajet n'existe pas

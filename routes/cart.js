@@ -6,6 +6,7 @@ const Cart = require("../models/carts");
 router.get("/allCart", function (req, res, next) {
   
   Cart.find({ })
+  .populate('travelInfos')
   .then((travels) => {
     if (travels) { // On retourne les infos des trajets
         res.json({result: true, travels: travels});
@@ -18,13 +19,14 @@ router.get("/allCart", function (req, res, next) {
 /* Post a travel in the cart */
 router.post("/addToCart", function (req, res, next) {
   
-    const {travelInfo} = req.body;
+    const {travelInfos} = req.body;
 
     const newTrip = new Cart({
-        travelInfo
+        travelInfos
     });
 
-    newTrip.save().then((trip) => {
+    newTrip.save()
+    .then((trip) => {
         res.json({result: true, tripCart: trip})
     });
 
@@ -33,7 +35,7 @@ router.post("/addToCart", function (req, res, next) {
 /* Delete a travel in the cart */
 router.delete("/deleteTrip/:id", function (req, res, next) {
   
-    Cart.deleteOne({travelInfo: req.params.id})
+    Cart.deleteOne({travelInfos: req.params.id})
     .then(() => {
         res.json({result: true})
     });
@@ -43,7 +45,7 @@ router.delete("/deleteTrip/:id", function (req, res, next) {
 /* Empty cart */
 router.delete("/emptyCart", function (req, res, next) {
   
-    Cart.delete({ })
+    Cart.deleteMany({ })
     .then(() => {
         res.json({result: true})
     });
