@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 const Booking = require("../models/bookings");
 const Cart = require("../models/carts");
+var moment = require('moment');
 
 /* Display all bookings */
 router.get("/allBookings", function (req, res, next) {

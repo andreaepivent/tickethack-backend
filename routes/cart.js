@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 const Cart = require("../models/carts");
 
-/* GET all travels */
+/* Display all travels in cart */
 router.get("/allCart", function (req, res, next) {
   
   Cart.find({ })
@@ -34,6 +34,16 @@ router.post("/addToCart", function (req, res, next) {
 router.delete("/deleteTrip/:id", function (req, res, next) {
   
     Cart.deleteOne({travelInfo: req.params.id})
+    .then(() => {
+        res.json({result: true})
+    });
+
+  });
+
+/* Empty cart */
+router.delete("/emptyCart", function (req, res, next) {
+  
+    Cart.delete({ })
     .then(() => {
         res.json({result: true})
     });
