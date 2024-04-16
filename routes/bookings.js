@@ -3,7 +3,7 @@ var router = express.Router();
 const Booking = require("../models/bookings");
 const Cart = require("../models/carts");
 
-/* GET all travels */
+/* Display all bookings */
 router.get("/allBookings", function (req, res, next) {
   
   Booking.find({ })
@@ -16,7 +16,7 @@ router.get("/allBookings", function (req, res, next) {
   })
 });
 
-/* Post a travel */
+/* Transfer cart to bookings */
 router.post("/purchase", function (req, res, next) {
   
     Cart.find({})

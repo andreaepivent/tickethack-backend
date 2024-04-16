@@ -15,7 +15,7 @@ router.get("/allCart", function (req, res, next) {
   })
 });
 
-/* Post a travel */
+/* Post a travel in the cart */
 router.post("/addToCart", function (req, res, next) {
   
     const {travelInfo} = req.body;
@@ -30,7 +30,7 @@ router.post("/addToCart", function (req, res, next) {
 
   });
 
-/* Delete cart */
+/* Delete a travel in the cart */
 router.delete("/deleteTrip/:id", function (req, res, next) {
   
     Cart.deleteOne({travelInfo: req.params.id})
