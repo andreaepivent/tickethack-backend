@@ -9,13 +9,22 @@ router.get("/:departure/:arrival/:timestamp", function (req, res, next) {
   const date = moment(Number(timestamp));
 
   // Début de la journée spécifiée
-  const startOfDay = date.startOf('day').toDate();
-  
+  const startOfDay = date.startOf("day").toDate();
   // Début du jour suivant
-  const endOfDay = date.endOf('day').toDate();
+  const endOfDay = date.endOf("day").toDate();
 
-  Travel.find({ departure, arrival, date: {
-    $gte: startOfDay, $lt: endOfDay}}).then((travels) => {
+  // Utilisation de RegExp pour rendre la recherche insensible à la casse
+  const departureRegExp = new RegExp(departure, "i");
+  const arrivalRegExp = new RegExp(arrival, "i");
+
+  Travel.find({
+    departure: departureRegExp,
+    arrival: arrivalRegExp,
+    date: {
+      $gte: startOfDay,
+      $lt: endOfDay,
+    },
+  }).then((travels) => {
     if (travels) {
       // On retourne les infos des trajets
       res.json({ result: true, travels: travels});
