@@ -8,7 +8,7 @@ router.get("/allCart", function (req, res, next) {
   Cart.find({ })
   .populate('travelInfos')
   .then((travels) => {
-    if (travels) { // On retourne les infos des trajets
+    if (travels.length>0) { // On retourne les infos des trajets
         res.json({result: true, travels: travels});
     } else { // Le trajet n'existe pas
         res.json({result: false});
