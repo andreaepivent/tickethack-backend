@@ -17,7 +17,7 @@ router.get("/allBookings", function (req, res, next) {
 });
 
 /* Post a travel */
-router.post("/addBooking", function (req, res, next) {
+router.post("/purchase", function (req, res, next) {
   
     Cart.find({})
     .then((travels) => {
