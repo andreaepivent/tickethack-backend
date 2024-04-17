@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 const Cart = require("../models/carts");
+const Travel = require("../models/travels");
 
 /* Display all travels in cart */
 router.get("/allCart", function (req, res, next) {
@@ -21,15 +22,21 @@ router.post("/addToCart", function (req, res, next) {
   
     const {travelInfos} = req.body;
 
-    const newTrip = new Cart({
-        travelInfos
-    });
-
-    newTrip.save()
-    .then((trip) => {
-        res.json({result: true, tripCart: trip})
-    });
-
+    Travel.findById(travelInfos).then(data => {
+      if (data) {
+        const newTrip = new Cart({
+          travelInfos
+        });
+  
+      newTrip.save()
+      .then((trip) => {
+          res.json({result: true, tripCart: trip})
+      });
+  
+      } else {
+        res.json({result: false})
+      }
+    })
   });
 
 /* Delete a travel in the cart */
