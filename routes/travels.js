@@ -25,7 +25,7 @@ router.get("/:departure/:arrival/:timestamp", function (req, res, next) {
       $lt: endOfDay,
     },
   }).then((travels) => {
-    if (travels) {
+    if (travels.length > 0) {
       // On retourne les infos des trajets
       res.json({ result: true, travels: travels});
     } else {
