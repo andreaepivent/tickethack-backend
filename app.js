@@ -13,7 +13,7 @@ var bookingRouter = require('./routes/bookings');
 
 var app = express();
 const cors = require('cors');
-app.use(cors());
+app.use(cors({ origin: 'https://tickethack-frontend-orpin.vercel.app' }));
 
 app.use(logger('dev'));
 app.use(express.json());
