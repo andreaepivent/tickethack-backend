@@ -13,7 +13,7 @@ var bookingRouter = require("./routes/bookings");
 
 var app = express();
 
-const cors = require("cors"); // Installation de Cors
+const cors = require("cors"); // Installation de Cors //
 
 const corsOptions = {
   origin: function (origin, callback) {
